@@ -1,9 +1,9 @@
 class Tree {
   constructor(arr) {
-    this.root = this.buildTree(arr);
+    this.root = this.#buildTree(arr);
   }
 
-  buildTree(arr) {
+  #buildTree(arr) {
     // TODO: implement function
     const sortedArr = arr.sort((a, b) => a - b);
 
