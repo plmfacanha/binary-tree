@@ -2,21 +2,24 @@ import Node from "./Node.js";
 
 class Tree {
   constructor(arr) {
+    arr.sort((a, b) => a - b);
     this.root = this.#buildTree(arr);
   }
 
   #buildTree(arr) {
-    // TODO: implement function
-    const sortedArr = arr.sort((a, b) => a - b);
+    if (arr.length === 1) {
+      return new Node(arr[0]);
+    } else {
+      const mid = Math.floor(arr.length / 2);
+      const left = this.#buildTree(arr.slice(0, mid));
+      const right = this.#buildTree(arr.slice(mid));
 
-    const mid = Math.floor(sortedArr.length / 2);
-    const root = new Node(sortedArr[mid]);
-
-    console.log(sortedArr);
-    return root;
+      const root = new Node(arr[mid]);
+      root.left = left;
+      root.right = right;
+      return root;
+    }
   }
 }
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 3, 5, 67, 88, 99]);
-
-console.log(tree.root);
+const node = new Tree([1, 7, 4, 23, 8, 9, 3, 5, 67, 88, 99]);
