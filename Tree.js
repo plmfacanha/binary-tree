@@ -7,6 +7,7 @@ class Tree {
   }
 
   #buildTree(arr) {
+    if (arr.length === 0) return null;
     if (arr.length === 1) {
       return new Node(arr[0]);
     } else {
@@ -21,8 +22,8 @@ class Tree {
     }
   }
 }
-
-const tree = new Tree([1, 4, 5]);
+const list = Array.from({ length: 40 }, () => Math.floor(Math.random() * 101));
+const tree = new Tree([...new Set(list)]);
 const root = tree.root;
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null || node === undefined) {
