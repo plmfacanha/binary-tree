@@ -21,10 +21,13 @@ class Tree {
       return root;
     }
   }
+
+  includes(value) {}
 }
 const list = Array.from({ length: 40 }, () => Math.floor(Math.random() * 101));
 const tree = new Tree([...new Set(list)]);
 const root = tree.root;
+
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null || node === undefined) {
     return;
