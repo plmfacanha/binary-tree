@@ -19,11 +19,20 @@ class Tree {
     return root;
   }
 
-  includes(value) {}
+  includes(value) {
+    if (value === this.root.data) return true;
+
+    let curr;
+
+    if (value >= this.root.data) {
+      curr = this.root.right.data;
+    } else {
+      curr = this.root.left.data;
+    }
+
+    console.log(curr);
+  }
 }
-const list = Array.from({ length: 40 }, () => Math.floor(Math.random() * 101));
-const tree = new Tree([...new Set(list)]);
-const root = tree.root;
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null || node === undefined) {
@@ -35,4 +44,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
+const tree = new Tree([...new Set([1, 3, 4, 6, 7])]);
+const root = tree.root;
+
 prettyPrint(root);
+
+tree.includes(6);
