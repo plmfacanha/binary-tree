@@ -12,7 +12,7 @@ class Tree {
     } else {
       const mid = Math.floor(arr.length / 2);
       const left = this.#buildTree(arr.slice(0, mid));
-      const right = this.#buildTree(arr.slice(mid));
+      const right = this.#buildTree(arr.slice(mid + 1));
 
       const root = new Node(arr[mid]);
       root.left = left;
@@ -22,4 +22,16 @@ class Tree {
   }
 }
 
-const node = new Tree([1, 7, 4, 23, 8, 9, 3, 5, 67, 88, 99]);
+const tree = new Tree([1, 4, 5]);
+const root = tree.root;
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+  if (node === null || node === undefined) {
+    return;
+  }
+
+  prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+  prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+};
+
+prettyPrint(root);
