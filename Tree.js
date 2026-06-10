@@ -19,24 +19,20 @@ class Tree {
     return root;
   }
 
-  includes(value) {
-    let currNode = this.root;
+  #searchNode(node, value) {
+    if (node === null) return false;
 
-    if (currNode === null) return false;
+    if (value === node.data) return true;
 
-    while (currNode !== null) {
-      if (value === currNode.data) {
-        return true;
-      }
-
-      if (value < currNode.data) {
-        currNode = currNode.left;
-      } else if (value > currNode.data) {
-        currNode = currNode.right;
-      }
+    if (value < node.data) {
+      return this.#searchNode(node.left, value);
+    } else if (value > node.data) {
+      return this.#searchNode(node.right, value);
     }
+  }
 
-    return false;
+  includes(value) {
+    return this.#searchNode(this.root, value);
   }
 }
 
@@ -55,4 +51,4 @@ const root = tree.root;
 
 prettyPrint(root);
 
-tree.includes(6);
+console.log(tree.includes(6));
