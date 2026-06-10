@@ -20,17 +20,23 @@ class Tree {
   }
 
   includes(value) {
-    if (value === this.root.data) return true;
+    let currNode = this.root;
 
-    let curr;
+    if (currNode === null) return false;
 
-    if (value >= this.root.data) {
-      curr = this.root.right.data;
-    } else {
-      curr = this.root.left.data;
+    while (currNode !== null) {
+      if (value === currNode.data) {
+        return true;
+      }
+
+      if (value < currNode.data) {
+        currNode = currNode.left;
+      } else if (value > currNode.data) {
+        currNode = currNode.right;
+      }
     }
 
-    console.log(curr);
+    return false;
   }
 }
 
