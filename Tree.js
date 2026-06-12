@@ -34,6 +34,8 @@ class Tree {
   includes(value) {
     return this.#searchNode(this.root, value);
   }
+
+  insert(value) {}
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -46,9 +48,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([...new Set([1, 3, 4, 6, 7])]);
+const tree = new Tree([...new Set([1, 4, 7])]);
 const root = tree.root;
 
 prettyPrint(root);
-
-console.log(tree.includes(6));
