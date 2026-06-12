@@ -52,3 +52,5 @@ const tree = new Tree([...new Set([1, 4, 7])]);
 const root = tree.root;
 
 prettyPrint(root);
+
+tree.insert(6);
