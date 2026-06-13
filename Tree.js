@@ -48,6 +48,8 @@ class Tree {
   insert(value) {
     const currNode = this.#getNode(this.root, value);
 
+    if (value === currNode.data) return; //skip duplicates
+
     const newNode = new Node(value);
 
     if (value < currNode.data) {
