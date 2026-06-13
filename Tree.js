@@ -35,18 +35,20 @@ class Tree {
     return this.#searchNode(this.root, value);
   }
 
-  #getParentNode(node, value) {
+  #getNode(node, value) {
+    if (node === null) return node;
+
     if (value > node.data && node.right !== null) {
-      return this.#getParentNode(node.right, value);
+      return this.#getNode(node.right, value);
     } else if (value < node.data && node.left !== null) {
-      return this.#getParentNode(node.left, value);
+      return this.#getNode(node.left, value);
     }
 
     return node;
   }
 
   insert(value) {
-    const parentNode = this.#getParentNode(this.root, value);
+    const parentNode = this.#getNode(this.root, value);
 
     if (value === parentNode.data) return; // skip duplicates
 
@@ -59,22 +61,26 @@ class Tree {
     }
   }
 
-  #getNode(node, value) {
-    if (node === null) return node;
-
-    if (value < node.data) {
-      return this.#getNode(node.left, value);
-    } else if (value > node.data) {
-      return this.#getNode(node.right, value);
+  #getParentNode(node, value) {
+    if (value < node.data && node.left.data !== value) {
+      return this.#getParentNode(node.left, value);
+    } else if (value > node.data && node.right.data !== value) {
+      return this.#getParentNode(node.right, value);
     }
 
     return node;
   }
 
   deleteItem(value) {
-    const currNode = this.#getNode(this.root, value);
+    let parentNode = this.#getParentNode(this.root, value);
+    let currNode = this.#getNode(this.root, value);
 
-    console.log(currNode);
+    if (currNode === null) console.log("Node doesn't exist in this tree!");
+
+    console.log("Parent node is: ", parentNode);
+    console.log("Current node is: ", currNode);
+
+    return;
   }
 }
 
@@ -94,5 +100,6 @@ const root = tree.root;
 tree.insert(5);
 tree.insert(7);
 tree.insert(3);
-tree.deleteItem(2);
+tree.insert(2);
+tree.deleteItem(3);
 prettyPrint(root);
