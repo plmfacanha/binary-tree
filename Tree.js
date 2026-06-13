@@ -35,28 +35,46 @@ class Tree {
     return this.#searchNode(this.root, value);
   }
 
-  #getNode(node, value) {
+  #getParentNode(node, value) {
     if (value > node.data && node.right !== null) {
-      return this.#getNode(node.right, value);
+      return this.#getParentNode(node.right, value);
     } else if (value < node.data && node.left !== null) {
-      return this.#getNode(node.left, value);
+      return this.#getParentNode(node.left, value);
     }
 
     return node;
   }
 
   insert(value) {
-    const currNode = this.#getNode(this.root, value);
+    const parentNode = this.#getParentNode(this.root, value);
 
-    if (value === currNode.data) return; //skip duplicates
+    if (value === parentNode.data) return; // skip duplicates
 
     const newNode = new Node(value);
 
-    if (value < currNode.data) {
-      currNode.left = newNode;
+    if (value < parentNode.data) {
+      parentNode.left = newNode;
     } else {
-      currNode.right = newNode;
+      parentNode.right = newNode;
     }
+  }
+
+  #getNode(node, value) {
+    if (node === null) return node;
+
+    if (value < node.data) {
+      return this.#getNode(node.left, value);
+    } else if (value > node.data) {
+      return this.#getNode(node.right, value);
+    }
+
+    return node;
+  }
+
+  deleteItem(value) {
+    const currNode = this.#getNode(this.root, value);
+
+    console.log(currNode);
   }
 }
 
@@ -76,4 +94,5 @@ const root = tree.root;
 tree.insert(5);
 tree.insert(7);
 tree.insert(3);
+tree.deleteItem(2);
 prettyPrint(root);
