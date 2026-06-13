@@ -35,7 +35,27 @@ class Tree {
     return this.#searchNode(this.root, value);
   }
 
-  insert(value) {}
+  #getNode(node, value) {
+    if (value > node.data && node.right !== null) {
+      return this.#getNode(node.right, value);
+    } else if (value < node.data && node.left !== null) {
+      return this.#getNode(node.left, value);
+    }
+
+    return node;
+  }
+
+  insert(value) {
+    const currNode = this.#getNode(this.root, value);
+
+    const newNode = new Node(value);
+
+    if (value < currNode.data) {
+      currNode.left = newNode;
+    } else {
+      currNode.right = newNode;
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -48,9 +68,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([...new Set([1, 4, 7])]);
+const tree = new Tree([1, 4, 6]);
 const root = tree.root;
 
+tree.insert(5);
+tree.insert(7);
+tree.insert(3);
 prettyPrint(root);
-
-tree.insert(6);
