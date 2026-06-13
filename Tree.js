@@ -80,6 +80,20 @@ class Tree {
     console.log("Parent node is: ", parentNode);
     console.log("Current node is: ", currNode);
 
+    if (parentNode.data < value) {
+      parentNode.right = null;
+    } else if (parentNode.data > value) {
+      parentNode.left = null;
+    }
+
+    if (currNode.left !== null) {
+      this.insert(currNode.left.data);
+    }
+
+    if (currNode.right !== null) {
+      this.insert(currNode.right.data);
+    }
+
     return;
   }
 }
@@ -101,5 +115,6 @@ tree.insert(5);
 tree.insert(7);
 tree.insert(3);
 tree.insert(2);
-tree.deleteItem(3);
+tree.deleteItem(7);
+tree.deleteItem(1);
 prettyPrint(root);
