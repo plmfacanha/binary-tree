@@ -80,8 +80,11 @@ class Tree {
     console.log("Parent node is: ", parentNode);
     console.log("Current node is: ", currNode);
 
-    // in case the parent node is the same as current node, which will be the root with no leaves
+    // 1. in case the node to be deleted is the root
     if (parentNode === currNode) {
+      if (currNode.right === null && currNode.left === null) {
+        this.root = null;
+      }
     }
 
     // if (parentNode.data < value) {
