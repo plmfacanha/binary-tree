@@ -80,19 +80,23 @@ class Tree {
     console.log("Parent node is: ", parentNode);
     console.log("Current node is: ", currNode);
 
-    if (parentNode.data < value) {
-      parentNode.right = null;
-    } else if (parentNode.data > value) {
-      parentNode.left = null;
+    // in case the parent node is the same as current node, which will be the root with no leaves
+    if (parentNode === currNode) {
     }
 
-    if (currNode.left !== null) {
-      this.insert(currNode.left.data);
-    }
+    // if (parentNode.data < value) {
+    //   parentNode.right = null;
+    // } else if (parentNode.data > value) {
+    //   parentNode.left = null;
+    // }
 
-    if (currNode.right !== null) {
-      this.insert(currNode.right.data);
-    }
+    // if (currNode.left !== null) {
+    //   this.insert(currNode.left.data);
+    // }
+
+    // if (currNode.right !== null) {
+    //   this.insert(currNode.right.data);
+    // }
 
     return;
   }
@@ -108,13 +112,12 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([1, 4, 6]);
+const tree = new Tree([4]);
 const root = tree.root;
 
-tree.insert(5);
-tree.insert(7);
-tree.insert(3);
-tree.insert(2);
-tree.deleteItem(7);
-tree.deleteItem(1);
+// tree.insert(5);
+// tree.insert(7);
+// tree.insert(3);
+// tree.insert(2);
+tree.deleteItem(4);
 prettyPrint(root);
