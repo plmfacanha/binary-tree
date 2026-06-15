@@ -35,18 +35,6 @@ class Tree {
     return this.#searchNode(this.root, value);
   }
 
-  #getNode(node, value) {
-    if (node === null) return node;
-
-    if (value > node.data && node.right !== null) {
-      return this.#getNode(node.right, value);
-    } else if (value < node.data && node.left !== null) {
-      return this.#getNode(node.left, value);
-    }
-
-    return node;
-  }
-
   insert(value) {
     const parentNode = this.#getNode(this.root, value);
 
@@ -71,6 +59,35 @@ class Tree {
     return node;
   }
 
+  #getNode(node, value) {
+    if (node === null) return node;
+
+    if (value > node.data && node.right !== null) {
+      return this.#getNode(node.right, value);
+    } else if (value < node.data && node.left !== null) {
+      return this.#getNode(node.left, value);
+    }
+
+    return node;
+  }
+
+  getTree(root) {
+    let left = [];
+    let right = [];
+
+    if (root === null) return arr;
+
+    if (root.left) {
+      left = this.getTree(root.left);
+    }
+
+    if (root.right) {
+      right = this.getTree(root.right);
+    }
+
+    return left.concat([root.data]).concat(right);
+  }
+
   deleteItem(value) {
     let parentNode = this.#getParentNode(this.root, value);
     let currNode = this.#getNode(this.root, value);
@@ -82,11 +99,25 @@ class Tree {
 
     // 1. in case the node to be deleted is the root
     if (parentNode === currNode) {
+      // 2. in case the root has no children
       if (currNode.right === null && currNode.left === null) {
         this.root = null;
       }
+      // 3. in case the root has the left children and empty right
+      if (currNode.left !== null && currNode.right === null) {
+        const tree = this.getTree(currNode.left);
+        this.root = this.#buildTree(tree);
+      }
+      // 4. if root has right children and empty left
+      else if (currNode.right !== null && currNode.left === null) {
+        const tree = this.getTree(currNode.right);
+        this.root = this.#buildTree(currNode.right);
+        // 5. if root has both children
+      } else {
+      }
     }
 
+    // 6. in case the deleted item is not the root
     // if (parentNode.data < value) {
     //   parentNode.right = null;
     // } else if (parentNode.data > value) {
@@ -115,12 +146,18 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([4]);
-const root = tree.root;
+const tree = new Tree([15]);
 
-// tree.insert(5);
-// tree.insert(7);
-// tree.insert(3);
-// tree.insert(2);
-tree.deleteItem(4);
-prettyPrint(root);
+// tree.insert(11);
+// tree.insert(10);
+tree.insert(3);
+tree.insert(2);
+tree.insert(6);
+tree.insert(5);
+tree.insert(11);
+tree.insert(9);
+tree.insert(7);
+tree.insert(8);
+tree.insert(1);
+tree.deleteItem(15);
+prettyPrint(tree.root);
