@@ -1,5 +1,4 @@
 import Node from "./Node.js";
-
 class Tree {
   constructor(arr) {
     const sorted = [...new Set(arr)].sort((a, b) => a - b);
@@ -35,20 +34,6 @@ class Tree {
     return this.#searchNode(this.root, value);
   }
 
-  insert(value) {
-    const parentNode = this.#getNode(this.root, value);
-
-    if (value === parentNode.data) return; // skip duplicates
-
-    const newNode = new Node(value);
-
-    if (value < parentNode.data) {
-      parentNode.left = newNode;
-    } else {
-      parentNode.right = newNode;
-    }
-  }
-
   #getParentNode(node, value) {
     if (value < node.data && node.left.data !== value) {
       return this.#getParentNode(node.left, value);
@@ -69,6 +54,20 @@ class Tree {
     }
 
     return node;
+  }
+
+  insert(value) {
+    const parentNode = this.#getNode(this.root, value);
+
+    if (value === parentNode.data) return; // skip duplicates
+
+    const newNode = new Node(value);
+
+    if (value < parentNode.data) {
+      parentNode.left = newNode;
+    } else {
+      parentNode.right = newNode;
+    }
   }
 
   getTree(root) {
@@ -102,26 +101,44 @@ class Tree {
       }
       // 3. in case the root has the left children and empty right
       if (currNode.left !== null && currNode.right === null) {
-        const tree = this.getTree(currNode.left);
-        this.root = this.#buildTree(tree);
+        const updatedTree = this.getTree(currNode.left);
+        this.root = this.#buildTree(updatedTree);
       }
       // 4. if root has right children and empty left
       else if (currNode.right !== null && currNode.left === null) {
-        const tree = this.getTree(currNode.right);
-        this.root = this.#buildTree(currNode.right);
+        const updatedTree = this.getTree(currNode.right);
+        this.root = this.#buildTree(updatedTree);
+      } else {
+        // 5. if root has both children
+        const left = this.getTree(currNode.left);
+        const right = this.getTree(currNode.right);
+
+        this.root = this.#buildTree(left.concat(right));
       }
-      // TODO: if root has both children
-      // else {}
+      return;
     }
 
-    // 6. in case the deleted item is not the root, so the parent node is different than the children node
-    console.log("Parent node is: ", parentNode);
-    console.log("Children node is: ", currNode);
+    // 6. in case the deleted item is not the root
+    let childrenBranches = [];
 
-    // 6.1 if the node has no children
-    // 6.2 if the node has left children
-    // 6.3 if the node has right children
-    // 6.4 if the node has two children
+    if (currNode.left !== null && currNode.right === null) {
+      childrenBranches = this.getTree(currNode.left);
+    } else if (currNode.left === null && currNode.right !== null) {
+      childrenBranches = this.getTree(currNode.right);
+    } else if (currNode.left !== null && currNode.right !== null) {
+      const leftBranch = this.getTree(currNode.left);
+      const rightBranch = this.getTree(currNode.right);
+
+      childrenBranches = leftBranch.concat(rightBranch);
+    }
+
+    // rebuild children into a balanced subtree and attach it
+    const newSubtree = this.#buildTree(childrenBranches);
+    if (currNode.data < parentNode.data) {
+      parentNode.left = newSubtree;
+    } else {
+      parentNode.right = newSubtree;
+    }
 
     return;
   }
@@ -137,12 +154,23 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([4]);
+const tree = new Tree([4, 6, 7, 8, 9, 11]);
 
-// tree.insert(11);
-// tree.insert(10);
 tree.insert(3);
-tree.insert(2);
+tree.insert(13);
+tree.insert(5);
 tree.insert(1);
+
+// tree.deleteItem(4);
+// tree.deleteItem(11);
+tree.insert(15);
+tree.insert(14);
+tree.insert(22);
+tree.insert(13);
+tree.insert(11);
+tree.insert(12);
+tree.deleteItem(11);
+tree.deleteItem(14);
 tree.deleteItem(4);
+
 prettyPrint(tree.root);
