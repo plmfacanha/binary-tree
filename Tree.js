@@ -75,7 +75,7 @@ class Tree {
     let left = [];
     let right = [];
 
-    if (root === null) return arr;
+    if (root === null) return [];
 
     if (root.left) {
       left = this.getTree(root.left);
@@ -112,25 +112,25 @@ class Tree {
       else if (currNode.right !== null && currNode.left === null) {
         const tree = this.getTree(currNode.right);
         this.root = this.#buildTree(currNode.right);
-        // 5. if root has both children
-      } else {
       }
+      // TODO: if root has both children
+      // else {}
     }
 
     // 6. in case the deleted item is not the root
-    // if (parentNode.data < value) {
-    //   parentNode.right = null;
-    // } else if (parentNode.data > value) {
-    //   parentNode.left = null;
-    // }
+    if (parentNode.data < value) {
+      parentNode.right = null;
+    } else if (parentNode.data > value) {
+      parentNode.left = null;
+    }
 
-    // if (currNode.left !== null) {
-    //   this.insert(currNode.left.data);
-    // }
+    if (currNode.left !== null) {
+      this.insert(currNode.left.data);
+    }
 
-    // if (currNode.right !== null) {
-    //   this.insert(currNode.right.data);
-    // }
+    if (currNode.right !== null) {
+      this.insert(currNode.right.data);
+    }
 
     return;
   }
