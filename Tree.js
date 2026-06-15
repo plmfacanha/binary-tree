@@ -94,9 +94,6 @@ class Tree {
 
     if (currNode === null) console.log("Node doesn't exist in this tree!");
 
-    console.log("Parent node is: ", parentNode);
-    console.log("Current node is: ", currNode);
-
     // 1. in case the node to be deleted is the root
     if (parentNode === currNode) {
       // 2. in case the root has no children
@@ -117,20 +114,14 @@ class Tree {
       // else {}
     }
 
-    // 6. in case the deleted item is not the root
-    if (parentNode.data < value) {
-      parentNode.right = null;
-    } else if (parentNode.data > value) {
-      parentNode.left = null;
-    }
+    // 6. in case the deleted item is not the root, so the parent node is different than the children node
+    console.log("Parent node is: ", parentNode);
+    console.log("Children node is: ", currNode);
 
-    if (currNode.left !== null) {
-      this.insert(currNode.left.data);
-    }
-
-    if (currNode.right !== null) {
-      this.insert(currNode.right.data);
-    }
+    // 6.1 if the node has no children
+    // 6.2 if the node has left children
+    // 6.3 if the node has right children
+    // 6.4 if the node has two children
 
     return;
   }
