@@ -119,21 +119,21 @@ class Tree {
     }
 
     // 6. in case the deleted item is not the root
-    let childrenBranches = [];
+    let newSubtree = [];
 
     if (currNode.left !== null && currNode.right === null) {
-      childrenBranches = this.getTree(currNode.left);
+      newSubtree = this.getTree(currNode.left);
     } else if (currNode.left === null && currNode.right !== null) {
-      childrenBranches = this.getTree(currNode.right);
+      newSubtree = this.getTree(currNode.right);
     } else if (currNode.left !== null && currNode.right !== null) {
       const leftBranch = this.getTree(currNode.left);
       const rightBranch = this.getTree(currNode.right);
 
-      childrenBranches = leftBranch.concat(rightBranch);
+      newSubtree = leftBranch.concat(rightBranch);
     }
 
     // rebuild children into a balanced subtree and attach it
-    const newSubtree = this.#buildTree(childrenBranches);
+    newSubtree = this.#buildTree(newSubtree);
     if (currNode.data < parentNode.data) {
       parentNode.left = newSubtree;
     } else {
@@ -160,9 +160,6 @@ tree.insert(3);
 tree.insert(13);
 tree.insert(5);
 tree.insert(1);
-
-// tree.deleteItem(4);
-// tree.deleteItem(11);
 tree.insert(15);
 tree.insert(14);
 tree.insert(22);
