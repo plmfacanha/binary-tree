@@ -95,52 +95,22 @@ class Tree {
 
     // 1. in case the node to be deleted is the root
     if (parentNode === currNode) {
-      // 2. in case the root has no children
-      if (currNode.right === null && currNode.left === null) {
-        this.root = null;
-      }
-      // 3. in case the root has the left children and empty right
-      if (currNode.left !== null && currNode.right === null) {
-        const updatedTree = this.getTree(currNode.left);
-        this.root = this.#buildTree(updatedTree);
-      }
-      // 4. if root has right children and empty left
-      else if (currNode.right !== null && currNode.left === null) {
-        const updatedTree = this.getTree(currNode.right);
-        this.root = this.#buildTree(updatedTree);
-      } else {
-        // 5. if root has both children
-        const left = this.getTree(currNode.left);
-        const right = this.getTree(currNode.right);
-
-        this.root = this.#buildTree(left.concat(right));
-      }
+      const left = currNode.left ? this.getTree(currNode.left) : [];
+      const right = currNode.right ? this.getTree(currNode.right) : [];
+      this.root = this.#buildTree(left.concat(right));
       return;
     }
 
-    // 6. in case the deleted item is not the root
-    let newSubtree = [];
+    // 2. in case the deleted item is not the root
+    const left = currNode.left ? this.getTree(currNode.left) : [];
+    const right = currNode.right ? this.getTree(currNode.right) : [];
+    const newSubtree = this.#buildTree(left.concat(right));
 
-    if (currNode.left !== null && currNode.right === null) {
-      newSubtree = this.getTree(currNode.left);
-    } else if (currNode.left === null && currNode.right !== null) {
-      newSubtree = this.getTree(currNode.right);
-    } else if (currNode.left !== null && currNode.right !== null) {
-      const leftBranch = this.getTree(currNode.left);
-      const rightBranch = this.getTree(currNode.right);
-
-      newSubtree = leftBranch.concat(rightBranch);
-    }
-
-    // rebuild children into a balanced subtree and attach it
-    newSubtree = this.#buildTree(newSubtree);
     if (currNode.data < parentNode.data) {
       parentNode.left = newSubtree;
     } else {
       parentNode.right = newSubtree;
     }
-
-    return;
   }
 }
 
