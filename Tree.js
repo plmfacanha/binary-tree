@@ -106,23 +106,24 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
-    // if (!callback) throw new Error("Callback function must be passed");
+    if (!callback) throw new Error("Callback function must be passed");
 
     if (this.root === null) return;
 
     let queue = [];
-    let poppedNode;
-
+    let poppedValue;
     queue.push(this.root);
-    let currNode = queue.shift();
 
-    callback(currNode.data);
+    let currNode = this.root; // 8
+    let leftNode = currNode.left; // 4
+    let rightNode = currNode.right; // 11
 
-    // while (queue.length !== 0) {
-    //   if (currNode.left && currNode.right) {
-    //     queue.push(currNode.left.data, currNode.right.data);
-    //   }
-    // }
+    while (queue.length !== 0 && currNode !== null) {
+      poppedValue = queue.shift();
+      callback(poppedValue.data);
+      queue.push(currNode.left, currNode.right);
+      currNode = queue[0];
+    }
   }
 }
 
@@ -136,7 +137,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([4, 8, 11]);
+const tree = new Tree([4, 8, 11, 3, 7, 9]);
 
 prettyPrint(tree.root);
-tree.levelOrderForEach((val) => console.log(val));
+tree.levelOrderForEach((value) => console.log(value));
