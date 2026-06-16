@@ -114,15 +114,11 @@ class Tree {
     let poppedValue;
     queue.push(this.root);
 
-    let currNode = this.root; // 8
-    let leftNode = currNode.left; // 4
-    let rightNode = currNode.right; // 11
-
-    while (queue.length !== 0 && currNode !== null) {
+    while (queue.length !== 0 && poppedValue !== null) {
       poppedValue = queue.shift();
       callback(poppedValue.data);
-      queue.push(currNode.left, currNode.right);
-      currNode = queue[0];
+      queue.push(poppedValue.left, poppedValue.right);
+      poppedValue = queue[0];
     }
   }
 }
