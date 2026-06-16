@@ -104,6 +104,13 @@ class Tree {
       parentNode.right = newSubtree;
     }
   }
+
+  levelOrderForEach(callback) {
+    if (!callback) throw new Error("Callback function must be passed");
+
+    let queue = [];
+    let currNode = this.root;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -122,3 +129,4 @@ tree.insert(3);
 tree.deleteItem(6);
 
 prettyPrint(tree.root);
+// tree.levelOrderForEach();
