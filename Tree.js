@@ -71,18 +71,10 @@ class Tree {
   }
 
   getTree(root) {
-    let left = [];
-    let right = [];
-
     if (root === null) return [];
 
-    if (root.left) {
-      left = this.getTree(root.left);
-    }
-
-    if (root.right) {
-      right = this.getTree(root.right);
-    }
+    const left = root.left ? this.getTree(root.left) : [];
+    const right = root.right ? this.getTree(root.right) : [];
 
     return left.concat([root.data]).concat(right);
   }
@@ -139,5 +131,7 @@ tree.insert(12);
 tree.deleteItem(11);
 tree.deleteItem(14);
 tree.deleteItem(4);
+tree.deleteItem(5);
+tree.deleteItem(6);
 
 prettyPrint(tree.root);
