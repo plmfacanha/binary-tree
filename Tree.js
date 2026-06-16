@@ -119,19 +119,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const tree = new Tree([4, 6, 7, 8, 9, 11]);
 
 tree.insert(3);
-tree.insert(13);
-tree.insert(5);
-tree.insert(1);
-tree.insert(15);
-tree.insert(14);
-tree.insert(22);
-tree.insert(13);
-tree.insert(11);
-tree.insert(12);
-tree.deleteItem(11);
-tree.deleteItem(14);
-tree.deleteItem(4);
-tree.deleteItem(5);
 tree.deleteItem(6);
 
 prettyPrint(tree.root);
