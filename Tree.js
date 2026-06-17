@@ -111,21 +111,32 @@ class Tree {
 
     if (this.root === null) return;
 
+    let treeLength = this.getTree(this.root).length;
+    let index = 0;
     let queue = [];
-    let poppedValue;
     queue.push(this.root);
 
-    while (queue.length !== 0 && poppedValue !== null) {
-      poppedValue = queue.shift();
-      callback(poppedValue.data);
-      queue.push(poppedValue.left, poppedValue.right);
-      poppedValue = queue[0];
+    let node = queue[index];
+
+    while (index <= treeLength) {
+      if (node !== null) {
+        callback(node.data);
+        queue.push(node.left, node.right);
+      }
+      node = queue[++index];
     }
   }
 
   inOrderForEach(callback) {
     if (!callback)
       throw new Error("Callback function must be passed as argument");
+
+    if (this.root === null) return;
+
+    let queue = [];
+    let node;
+
+    // TODO: implement logic to pass nodes in order as parameter to the callback argument
   }
 }
 
@@ -141,5 +152,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([4, 8, 11, 3, 7, 9]);
 
+tree.insert(2);
 prettyPrint(tree.root);
 tree.levelOrderForEach((value) => console.log(value));
