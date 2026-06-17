@@ -106,7 +106,8 @@ class Tree {
   }
 
   levelOrderForEach(callback) {
-    if (!callback) throw new Error("Callback function must be passed");
+    if (!callback)
+      throw new Error("Callback function must be passed as argument");
 
     if (this.root === null) return;
 
@@ -120,6 +121,11 @@ class Tree {
       queue.push(poppedValue.left, poppedValue.right);
       poppedValue = queue[0];
     }
+  }
+
+  inOrderForEach(callback) {
+    if (!callback)
+      throw new Error("Callback function must be passed as argument");
   }
 }
 
