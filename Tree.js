@@ -111,18 +111,19 @@ class Tree {
 
     if (this.root === null) return;
 
-    let index = 0;
-    let queue = [];
-    queue.push(this.root);
+    // * Iterative Approach
+    // let index = 0;
+    // let queue = [];
+    // queue.push(this.root);
 
-    let node = queue[index];
+    // let node = queue[index];
 
-    while (index < queue.length) {
-      if (node !== null) {
-        callback(node.data);
-        queue.push(node.left, node.right);
-      }
-      node = queue[++index];
+    // while (index < queue.length) {
+    //   if (node !== null) {
+    //     callback(node.data);
+    //     queue.push(node.left, node.right);
+    //   }
+    //   node = queue[++index];
     }
   }
 
@@ -132,14 +133,7 @@ class Tree {
 
     if (this.root === null) return;
 
-    let index = 0;
-    let queue = [];
-    queue.push(this.root);
-
-    let node = queue[index];
-
-    // TODO: implement logic to pass nodes "in order" as parameter to the callback argument
-    while (index < queue.length) {}
+    return node;
   }
 }
 
@@ -157,4 +151,5 @@ const tree = new Tree([4, 8, 11, 3, 7, 9]);
 
 tree.insert(2);
 prettyPrint(tree.root);
-tree.levelOrderForEach((value) => console.log(value));
+// tree.levelOrderForEach((value) => console.log(value));
+tree.inOrderForEach((value) => console.log(value));
