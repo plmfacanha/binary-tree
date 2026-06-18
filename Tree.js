@@ -111,14 +111,13 @@ class Tree {
 
     if (this.root === null) return;
 
-    let treeLength = this.getTree(this.root).length;
     let index = 0;
     let queue = [];
     queue.push(this.root);
 
     let node = queue[index];
 
-    while (index <= treeLength) {
+    while (index < queue.length) {
       if (node !== null) {
         callback(node.data);
         queue.push(node.left, node.right);
@@ -133,10 +132,14 @@ class Tree {
 
     if (this.root === null) return;
 
+    let index = 0;
     let queue = [];
-    let node;
+    queue.push(this.root);
 
-    // TODO: implement logic to pass nodes in order as parameter to the callback argument
+    let node = queue[index];
+
+    // TODO: implement logic to pass nodes "in order" as parameter to the callback argument
+    while (index < queue.length) {}
   }
 }
 
