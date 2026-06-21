@@ -65,7 +65,7 @@ class Tree {
 
     if (value < parentNode.data) {
       parentNode.left = newNode;
-    } else {
+    } else if (value > parentNode.data) {
       parentNode.right = newNode;
     }
   }
@@ -105,18 +105,25 @@ class Tree {
     }
   }
 
-  getLevelOrderNodes(root, callback) {
-    if (root === null) return;
+  inOrderForEach(callback) {
+    if (!callback)
+      throw new Error("Callback function must be passed as argument");
 
-    let queue = [];
-    let index = 0;
-    let currNode;
+    if (this.root === null) return;
 
-    queue.push(root);
-    callback(queue[0]);
+    return node;
+  }
+  getLevelOrderNodes(nodes, callback) {
+    let queue = nodes.slice(1);
 
-    currNode = this.root.left;
-    this.getLevelOrderNodes(currNode, callback);
+    if (nodes.length === 0) return;
+
+    if (nodes[0] !== null) {
+      callback(nodes[0].data);
+      queue.push(nodes[0].left, nodes[0].right);
+    }
+
+    return this.getLevelOrderNodes(queue, callback);
   }
 
   levelOrderForEach(callback) {
@@ -124,7 +131,7 @@ class Tree {
       throw new Error("Callback function must be passed as argument");
 
     // * Recursive Approach
-    return this.getLevelOrderNodes(this.root, callback);
+    return this.getLevelOrderNodes([this.root], callback);
 
     // * Iterative Approach
     // let index = 0;
@@ -141,15 +148,6 @@ class Tree {
     //   node = queue[++index];
     // }
   }
-
-  inOrderForEach(callback) {
-    if (!callback)
-      throw new Error("Callback function must be passed as argument");
-
-    if (this.root === null) return;
-
-    return node;
-  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -164,7 +162,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([4, 8, 11, 3, 7, 9]);
 
+tree.insert(1);
 tree.insert(2);
+tree.insert(6);
 prettyPrint(tree.root);
 tree.levelOrderForEach((value) => console.log(value));
 // tree.inOrderForEach((value) => console.log(value));
