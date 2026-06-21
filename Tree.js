@@ -105,11 +105,26 @@ class Tree {
     }
   }
 
+  getLevelOrderNodes(root, callback) {
+    if (root === null) return;
+
+    let queue = [];
+    let index = 0;
+    let currNode;
+
+    queue.push(root);
+    callback(queue[0]);
+
+    currNode = this.root.left;
+    this.getLevelOrderNodes(currNode, callback);
+  }
+
   levelOrderForEach(callback) {
     if (!callback)
       throw new Error("Callback function must be passed as argument");
 
-    if (this.root === null) return;
+    // * Recursive Approach
+    return this.getLevelOrderNodes(this.root, callback);
 
     // * Iterative Approach
     // let index = 0;
@@ -124,7 +139,7 @@ class Tree {
     //     queue.push(node.left, node.right);
     //   }
     //   node = queue[++index];
-    }
+    // }
   }
 
   inOrderForEach(callback) {
@@ -151,5 +166,5 @@ const tree = new Tree([4, 8, 11, 3, 7, 9]);
 
 tree.insert(2);
 prettyPrint(tree.root);
-// tree.levelOrderForEach((value) => console.log(value));
-tree.inOrderForEach((value) => console.log(value));
+tree.levelOrderForEach((value) => console.log(value));
+// tree.inOrderForEach((value) => console.log(value));
