@@ -105,25 +105,15 @@ class Tree {
     }
   }
 
-  inOrderForEach(callback) {
-    if (!callback)
-      throw new Error("Callback function must be passed as argument");
-
-    if (this.root === null) return;
-
-    return node;
-  }
-  getLevelOrderNodes(nodes, callback) {
-    let queue = nodes.slice(1);
-
+  #getLevelOrderNodes(nodes, callback) {
     if (nodes.length === 0) return;
 
     if (nodes[0] !== null) {
       callback(nodes[0].data);
-      queue.push(nodes[0].left, nodes[0].right);
+      nodes.push(nodes[0].left, nodes[0].right);
     }
 
-    return this.getLevelOrderNodes(queue, callback);
+    return this.getLevelOrderNodes(nodes.slice(1), callback);
   }
 
   levelOrderForEach(callback) {
@@ -148,6 +138,46 @@ class Tree {
     //   node = queue[++index];
     // }
   }
+
+  inOrderForEach(callback) {
+    if (!callback)
+      throw new Error("Callback function must be passed as argument");
+
+    const traverse = (node) => {
+      if (node !== null) {
+        traverse(node.left);
+        callback(node.data);
+        traverse(node.right);
+      }
+    };
+    traverse(this.root);
+  }
+
+  preOrderForEach(callback) {
+    if (!callback) throw new Error("Callback must be passed as argument!");
+
+    const traverse = (node) => {
+      if (node !== null) {
+        callback(node.data);
+        traverse(node.left);
+        traverse(node.right);
+      }
+    };
+    traverse(this.root);
+  }
+
+  postOrderForEach(callback) {
+    if (!callback) throw new Error("Callback must be passed as argument!");
+
+    const traverse = (node) => {
+      if (node !== null) {
+        traverse(node.left);
+        traverse(node.right);
+        callback(node.data);
+      }
+    };
+    traverse(this.root);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -162,9 +192,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const tree = new Tree([4, 8, 11, 3, 7, 9]);
 
-tree.insert(1);
 tree.insert(2);
 tree.insert(6);
+tree.insert(5);
 prettyPrint(tree.root);
-tree.levelOrderForEach((value) => console.log(value));
+// tree.levelOrderForEach((value) => console.log(value));
 // tree.inOrderForEach((value) => console.log(value));
+// tree.preOrderForEach((value) => console.log(value));
+// tree.postOrderForEach((value) => console.log(value));
