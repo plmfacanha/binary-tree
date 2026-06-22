@@ -178,6 +178,8 @@ class Tree {
     };
     traverse(this.root);
   }
+
+  height() {}
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
