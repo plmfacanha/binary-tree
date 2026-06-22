@@ -182,13 +182,15 @@ class Tree {
   height(value) {
     //? height = 1 + max(height(leftSubtree), height(rightSubtree))
 
-    if (this.root.data === value) return 0;
+    const getHeight = (node) => {
+      if (node === null) return 0;
 
-    if (leftNode.data === value || rightNode.data === value) {
-      return 1;
-    }
+      return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    };
 
-    return 1 + max(height(this.root.left.data), height(this.root.right.data));
+    const node = this.#getNode(this.root, value);
+
+    return getHeight(node);
   }
 }
 
@@ -202,14 +204,17 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([4, 8, 11, 3, 7, 9]);
+const tree = new Tree([8]);
 
-tree.insert(2);
-tree.insert(6);
-tree.insert(5);
+tree.insert(4);
+// tree.insert(6);
+// tree.insert(5);
 prettyPrint(tree.root);
 // tree.levelOrderForEach((value) => console.log(value));
 // tree.inOrderForEach((value) => console.log(value));
 // tree.preOrderForEach((value) => console.log(value));
 // tree.postOrderForEach((value) => console.log(value));
-tree.height(4);
+console.log(tree.height(8));
+console.log(tree.height(4));
+// console.log(tree.height(6));
+// console.log(tree.height(5));
