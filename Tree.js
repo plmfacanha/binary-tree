@@ -179,7 +179,17 @@ class Tree {
     traverse(this.root);
   }
 
-  height() {}
+  height(value) {
+    //? height = 1 + max(height(leftSubtree), height(rightSubtree))
+
+    if (this.root.data === value) return 0;
+
+    if (leftNode.data === value || rightNode.data === value) {
+      return 1;
+    }
+
+    return 1 + max(height(this.root.left.data), height(this.root.right.data));
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -202,3 +212,4 @@ prettyPrint(tree.root);
 // tree.inOrderForEach((value) => console.log(value));
 // tree.preOrderForEach((value) => console.log(value));
 // tree.postOrderForEach((value) => console.log(value));
+tree.height(4);
