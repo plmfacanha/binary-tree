@@ -192,6 +192,14 @@ class Tree {
 
     return getHeight(node);
   }
+
+  depth(value) {
+    const getDepth = (node) => {};
+
+    const node = this.#getNode(this.root, value);
+
+    return getDepth(node);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
