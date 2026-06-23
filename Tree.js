@@ -204,6 +204,10 @@ class Tree {
 
     return getDepth(this.root);
   }
+
+  isBalanced() {
+    // ? height(node.left) - height(node.right) <= 1
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
