@@ -194,9 +194,13 @@ class Tree {
   }
 
   depth(value) {
-    const getDepth = (node) => {};
+    const getDepth = (node) => {
+      if (node === null) return;
 
-    const node = this.#getNode(this.root, value);
+      if (this.root.data === value) return 0;
+
+      const node = this.#getNode(this.root, value);
+    };
 
     return getDepth(node);
   }
@@ -212,7 +216,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([8]);
+const tree = new Tree([8, 1, 3]);
 
 tree.insert(4);
 // tree.insert(6);
@@ -222,7 +226,7 @@ prettyPrint(tree.root);
 // tree.inOrderForEach((value) => console.log(value));
 // tree.preOrderForEach((value) => console.log(value));
 // tree.postOrderForEach((value) => console.log(value));
-console.log(tree.height(8));
-console.log(tree.height(4));
+// console.log(tree.height(8));
+// console.log(tree.height(4));
 // console.log(tree.height(6));
 // console.log(tree.height(5));
