@@ -195,14 +195,14 @@ class Tree {
 
   depth(value) {
     const getDepth = (node) => {
-      if (node === null) return;
+      if (node === null) return 0;
 
-      if (this.root.data === value) return 0;
+      if (node.data === value) return 0;
 
-      const node = this.#getNode(this.root, value);
+      return 1 + Math.min(getDepth(node.left), getDepth(node.right));
     };
 
-    return getDepth(node);
+    return getDepth(this.root);
   }
 }
 
@@ -216,9 +216,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([8, 1, 3]);
+const tree = new Tree([8, 1, 3, 4, 5, 7]);
 
-tree.insert(4);
+tree.insert(6);
 // tree.insert(6);
 // tree.insert(5);
 prettyPrint(tree.root);
@@ -230,3 +230,8 @@ prettyPrint(tree.root);
 // console.log(tree.height(4));
 // console.log(tree.height(6));
 // console.log(tree.height(5));
+console.log(tree.depth(5));
+console.log(tree.depth(3));
+console.log(tree.depth(1));
+console.log(tree.depth(4));
+console.log(tree.depth(6));
