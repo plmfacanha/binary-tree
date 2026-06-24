@@ -217,8 +217,10 @@ class Tree {
       if (Math.abs(leftHeight - rightHeight) > 1) return false;
 
       // check for each children node
-      if (node.left !== null) return checkTreeBalance(node.left);
-      if (node.right !== null) return checkTreeBalance(node.right);
+      if (node.left !== null) const leftBalance = checkTreeBalance(node.left);
+      if (node.right !== null) const rightBalance =  checkTreeBalance(node.right);
+
+      return leftBalance && rightBalance;
     };
 
     return checkTreeBalance(this.root);
@@ -242,6 +244,7 @@ tree.insert(2);
 tree.insert(1);
 tree.insert(11);
 tree.insert(9);
+tree.insert(5);
 prettyPrint(tree.root);
 console.log(tree.isBalanced());
 // tree.levelOrderForEach((value) => console.log(value));
