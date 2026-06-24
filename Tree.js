@@ -179,6 +179,18 @@ class Tree {
     traverse(this.root);
   }
 
+  depth(value) {
+    const getDepth = (node) => {
+      if (node === null) return 0;
+
+      if (node.data === value) return 0;
+
+      return 1 + Math.min(getDepth(node.left), getDepth(node.right));
+    };
+
+    return getDepth(this.root);
+  }
+
   height(value) {
     //? height = 1 + max(height(leftSubtree), height(rightSubtree))
 
@@ -193,20 +205,17 @@ class Tree {
     return getHeight(node);
   }
 
-  depth(value) {
-    const getDepth = (node) => {
-      if (node === null) return 0;
-
-      if (node.data === value) return 0;
-
-      return 1 + Math.min(getDepth(node.left), getDepth(node.right));
-    };
-
-    return getDepth(this.root);
-  }
-
   isBalanced() {
     // ? height(node.left) - height(node.right) <= 1
+
+    const checkTreeBalance = (node) => {
+      if (node === null) return true;
+
+      const leftHeight = node.left ? this.height(node.left.data) : 0;
+      const leftHeight = node.left ? this.height(node.right.data) : 0;
+    };
+
+    return checkTreeBalance(this.root);
   }
 }
 
@@ -220,12 +229,14 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 };
 
-const tree = new Tree([8, 1, 3, 4, 5, 7]);
+const tree = new Tree([8]);
 
-tree.insert(6);
+tree.insert(4);
+tree.insert(2);
 // tree.insert(6);
 // tree.insert(5);
 prettyPrint(tree.root);
+console.log(tree.isBalanced());
 // tree.levelOrderForEach((value) => console.log(value));
 // tree.inOrderForEach((value) => console.log(value));
 // tree.preOrderForEach((value) => console.log(value));
@@ -234,8 +245,8 @@ prettyPrint(tree.root);
 // console.log(tree.height(4));
 // console.log(tree.height(6));
 // console.log(tree.height(5));
-console.log(tree.depth(5));
-console.log(tree.depth(3));
-console.log(tree.depth(1));
-console.log(tree.depth(4));
-console.log(tree.depth(6));
+// console.log(tree.depth(5));
+// console.log(tree.depth(3));
+// console.log(tree.depth(1));
+// console.log(tree.depth(4));
+// console.log(tree.depth(6));
