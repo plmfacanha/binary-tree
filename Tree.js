@@ -228,11 +228,8 @@ class Tree {
   rebalance() {
     // TODO: check if a tree is balanced, if not, traverse the current tree and feed the #buildTree() function
     // 1. check if current tree is balanced
-    const isBalanced = this.checkTreeBalance(this.root);
-
     // 2. If it's unbalanced
-    const newTree = !isBalanced ? this.getTree(this.root) : null;
-
+    const newTree = !this.isBalanced() ? this.getTree(this.root) : null;
     if (newTree) this.root = this.#buildTree(newTree);
   }
 }
@@ -257,6 +254,8 @@ tree.insert(1);
 // tree.insert(5);
 prettyPrint(tree.root);
 console.log(tree.isBalanced());
+tree.rebalance();
+prettyPrint(tree.root);
 // tree.levelOrderForEach((value) => console.log(value));
 // tree.inOrderForEach((value) => console.log(value));
 // tree.preOrderForEach((value) => console.log(value));
