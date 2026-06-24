@@ -212,7 +212,9 @@ class Tree {
       if (node === null) return true;
 
       const leftHeight = node.left ? this.height(node.left.data) : 0;
-      const leftHeight = node.left ? this.height(node.right.data) : 0;
+      const rightHeight = node.right ? this.height(node.right.data) : 0;
+
+      if (Math.abs(leftHeight - rightHeight) > 1) return false;
     };
 
     return checkTreeBalance(this.root);
