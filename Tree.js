@@ -113,7 +113,7 @@ class Tree {
       nodes.push(nodes[0].left, nodes[0].right);
     }
 
-    return this.getLevelOrderNodes(nodes.slice(1), callback);
+    return this.#getLevelOrderNodes(nodes.slice(1), callback);
   }
 
   levelOrderForEach(callback) {
@@ -121,7 +121,7 @@ class Tree {
       throw new Error("Callback function must be passed as argument");
 
     // * Recursive Approach
-    return this.getLevelOrderNodes([this.root], callback);
+    return this.#getLevelOrderNodes([this.root], callback);
 
     // * Iterative Approach
     // let index = 0;
@@ -224,6 +224,17 @@ class Tree {
 
     return checkTreeBalance(this.root);
   }
+
+  rebalance() {
+    // TODO: check if a tree is balanced, if not, traverse the current tree and feed the #buildTree() function
+    // 1. check if current tree is balanced
+    const isBalanced = this.checkTreeBalance(this.root);
+
+    // 2. If it's unbalanced
+    const newTree = !isBalanced ? this.getTree(this.root) : null;
+
+    if (newTree) this.root = this.#buildTree(newTree);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -241,9 +252,9 @@ const tree = new Tree([8]);
 tree.insert(4);
 tree.insert(2);
 tree.insert(1);
-tree.insert(11);
-tree.insert(9);
-tree.insert(5);
+// tree.insert(11);
+// tree.insert(9);
+// tree.insert(5);
 prettyPrint(tree.root);
 console.log(tree.isBalanced());
 // tree.levelOrderForEach((value) => console.log(value));
