@@ -216,9 +216,8 @@ class Tree {
 
       if (Math.abs(leftHeight - rightHeight) > 1) return false;
 
-      // check for each children node
-      if (node.left !== null) const leftBalance = checkTreeBalance(node.left);
-      if (node.right !== null) const rightBalance =  checkTreeBalance(node.right);
+      const leftBalance = checkTreeBalance(node.left);
+      const rightBalance = checkTreeBalance(node.right);
 
       return leftBalance && rightBalance;
     };
